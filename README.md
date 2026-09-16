@@ -1,5 +1,7 @@
 # 📊 Pipeline de Inteligência em Planejamento de Demanda & S&OP (End-to-End Analytics)
 
+![Dashboard de Planejamento de Demanda e S&OP](images/sop.png)
+
 ## 🧩 Contexto e Problema de Negócio
 
 No setor de bens de consumo (FMCG), o desalinhamento entre o volume previsto de vendas (*Forecast*) e o volume realmente comercializado na ponta (*Sell-Out*) gera sérios impactos financeiros nas operações fabris e de distribuição:
