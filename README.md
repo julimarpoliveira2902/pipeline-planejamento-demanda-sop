@@ -1,7 +1,5 @@
 # 📊 Pipeline de Inteligência em Planejamento de Demanda & S&OP (End-to-End Analytics)
 
-![Banner S&OP](images/dashboard_sop.png)
-
 ## 🧩 Contexto e Problema de Negócio
 
 No setor de bens de consumo (FMCG), o desalinhamento entre o volume previsto de vendas (*Forecast*) e o volume realmente comercializado na ponta (*Sell-Out*) gera sérios impactos financeiros nas operações fabris e de distribuição:
@@ -40,13 +38,30 @@ Este projeto foi projetado para automatizar o ciclo de inteligência de **Sales 
 
 📊 Principais Indicadores Calculados (KPIs):
 
-Métrica                                 Conceito de Negócio                                 Impacto Estratégico
-
-BIAS(Unidades) Medida de viés direcional (Forecast - Sell Out).Identifica a sobra ou a falta absoluta de produto na ponta.Erro % SKU (MAPE)Percentual de desvio absoluto vs. venda real.Avalia a precisão do algoritmo de demanda por item.Fill Rate (%)Taxa de atendimento da fábrica (Atendido / Sell In).Mede o nível de serviço e a eficiência logística fabril.Ação PrescritivaClassificação automática baseada na variação do BIAS.Direciona a ação responsável (Trade Mkt, Supply Chain ou Planejamento).
+* Métrica - BIAS(Unidades) |   Conceito de Negócio - Medida de viés direcional (Forecast - Sell Out) | Impacto Estratégico - Identifica a sobra ou a falta absoluta de produto na ponta.
+** Métrica - Erro % SKU (MAPE) | Conceito de Negócio -  Percentual de desvio absoluto vs. venda real | Impacto Estratégico - Avalia a precisão do algoritmo de demanda por item.
+*** Métrica - Fill Rate (%) | Conceito de Negócio - Taxa de atendimento da fábrica (Atendido / Sell In) | Impacto Estratégico - Mede o nível de serviço e a eficiência logística fabril
+**** Métrica - Ação Prescritiva | Conceito de Negócio - Classificação automática baseada na variação do BIAS | Direciona a ação responsável (Trade Mkt, Supply Chain ou Planejamento).
+                             
+                              
 📈 Resultados & Painel Executivo no Looker Studio
-💡 Destaques dos Resultados ObtidosVisualização Unificada (Scorecards): Mapeamento global de 50.000 un planejadas (Forecast) contra 41.100 un comercializadas (Sell-Out), evidenciando um BIAS líquido de +9.000 un acumuladas e um Fill Rate médio de 96,36%.Matriz de Responsabilidade Prescritiva:40% Trade Mkt & RGM: Atuação promocional para queima controlada de sobre-estoque em categorias críticas.20% Supply Chain: Ação prioritária de reabastecimento em SKUs subestimados com risco iminente de ruptura.40% Planejamento Contínuo: Produtos operando dentro da margem tolerável de acurácia.
-📊 Acesse o Dashboard Executivo de S&OP no Looker Studio (Insira o link correto do seu painel aqui)
-🛠️ Tecnologias e Ferramentas UtilizadasLinguagem & Processamento: Python 3.x, Apache Spark / PySparkManipulação & Análise: pandas, numpyVisualização: Google Looker StudioAmbiente de Desenvolvimento: Google Colab / Jupyter NotebookControle de Versão: Git / GitHub📂 Estrutura do RepositórioPlaintext├── data/
+
+💡 Destaques dos Resultados ObtidosVisualização Unificada (Scorecards): Mapeamento global de 50.000 un planejadas (Forecast) contra 41.100 un comercializadas (Sell-Out), evidenciando um BIAS líquido de +9.000 un acumuladas e um Fill Rate médio de 96,36%.
+
+Matriz de Responsabilidade Prescritiva:
+
+40% Trade Mkt & RGM: Atuação promocional para queima controlada de sobre-estoque em categorias críticas.
+20% Supply Chain: Ação prioritária de reabastecimento em SKUs subestimados com risco iminente de ruptura.
+40% Planejamento Contínuo: Produtos operando dentro da margem tolerável de acurácia.
+
+📊 Acesse o Dashboard Executivo de S&OP no Looker Studio (https://datastudio.google.com/s/iRtI9-AMkyY)
+
+🛠️ Tecnologias e Ferramentas UtilizadasLinguagem & Processamento: Python 3.x, Apache Spark / PySpark
+Manipulação & Análise: pandas, numpy
+Visualização: Google Looker Studio
+Ambiente de Desenvolvimento: Google Colab / Jupyter NotebookControle de Versão: Git / GitHub
+
+📂 Estrutura do RepositórioPlaintext├── data/
 │   ├── raw/                  # Respostas brutas da base ERP (vendas/forecast)
 │   └── processed/            # Dados limpos e métricas S&OP consolidadas
 ├── notebooks/
@@ -55,6 +70,7 @@ BIAS(Unidades) Medida de viés direcional (Forecast - Sell Out).Identifica a sob
 │   └── dashboard_sop.png     # Capturas do dashboard executivo no Looker Studio
 ├── requirements.txt          # Dependências e bibliotecas
 └── README.md                 # Documentação completa do projeto
+
 ▶️ Como Executar o Projeto
 
 1. Clone este repositório:
