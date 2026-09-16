@@ -1,6 +1,6 @@
 # 📊 Pipeline de Inteligência em Planejamento de Demanda & S&OP (End-to-End Analytics)
 
-![Dashboard de Planejamento de Demanda e S&OP](imagens/sop.jpg)
+![Dashboard de Planejamento de Demanda e S&OP](images/sop.jpg)
 
 ## 🧩 Contexto e Problema de Negócio
 
