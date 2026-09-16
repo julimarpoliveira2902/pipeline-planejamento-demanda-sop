@@ -1,102 +1,75 @@
-# 📊 Inteligência em Planejamento de Demanda & S&OP | End-to-End Analytics
+# 📊 Pipeline de Inteligência em Planejamento de Demanda & S&OP (End-to-End Analytics)
 
-![Python](https://img.shields.io/badge/Python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
-![PySpark](https://img.shields.io/badge/PySpark-E25A1C?style=for-the-badge&logo=apachespark&logoColor=white)
-![Looker Studio](https://img.shields.io/badge/Looker_Studio-4285F4?style=for-the-badge&logo=googlelookerstudio&logoColor=white)
-![Supply Chain](https://img.shields.io/badge/Domain-Supply_Chain_%26_S%26OP-blue?style=for-the-badge)
+![Banner S&OP](images/dashboard_sop.png)
 
-## 📌 Visão Geral do Projeto
+## 🧩 Contexto e Problema de Negócio
 
-Este projeto consiste em uma solução **End-to-End de Engenharia e Análise de Dados** desenvolvida para resolver desafios reais de **Planejamento de Demanda, S&OP (Sales and Operations Planning) e Gestão de Estoques** na indústria de bens de consumo (FMCG).
+No setor de bens de consumo (FMCG), o desalinhamento entre o volume previsto de vendas (*Forecast*) e o volume realmente comercializado na ponta (*Sell-Out*) gera sérios impactos financeiros nas operações fabris e de distribuição:
+* **Overforecasting (BIAS positivo):** Acúmulo desnecessário de estoque, imobilização de capital de giro e risco de obsolescência de produtos.
+* **Underforecasting (BIAS negativo):** Ruptura de estoque nos canais de venda, perda direta de receita e queda no nível de serviço aos clientes.
 
-A partir do processamento distribuído com **PySpark**, a solução limpa, consolida e calcula indicadores críticos de acurácia de demanda, mapeando vieses sistemáticos (BIAS) e direcionando **ações prescritivas** automatizadas para as áreas de **Trade Marketing/RGM**, **Supply Chain/Fábrica** e **Planejamento**. O ciclo encerra com a publicação de um **Dashboard Executivo e Tático no Looker Studio**.
-
----
-
-## 🎯 Problema de Negócio & Objetivos
-
-Modelos de previsão de demanda frequentemente sofrem com distorções de vendas (*Sell-out*) vs. entregas fabris (*Sell-in*). Previsões desalinhadas geram dois grandes riscos financeiros:
-
-1. **Overforecasting (BIAS +):** Acúmulo de estoque, capital de giro imobilizado e riscos de obsolescência/vencimento.
-2. **Underforecasting (BIAS -):** Ruptura nas prateleiras, perda de receita direta e insatisfação da rede de franqueados/clientes.
-
-### **Objetivos da Solução:**
-* Automatizar a ingestão e tratamento de volumetria de vendas e planejamento via **PySpark**.
-* Monitorar a taxa de atendimento da fábrica (**Fill Rate**) e a dispersão dos erros de previsão (**MAPE / BIAS / Erro Absoluto**).
-* Implementar um **motor de recomendação prescritivo** para direcionamento automático de gargalos aos times responsáveis.
-* Fornecer visualização em tempo real para tomada de decisão no **Looker Studio**.
+Este projeto foi projetado para automatizar o ciclo de inteligência de **Sales and Operations Planning (S&OP)**, calculando métricas de acurácia em grande escala e convertendo análises quantitativas em recomendações prescritivas para as tomadas de decisão estratégicas.
 
 ---
 
-## 🛠️ Arquitetura da Solução & Tech Stack
+## 🎯 Objetivos do Projeto
 
-[Dados Brutos (CSV/ERP)]
-│
-▼
-[Pipeline PySpark (Google Colab / Environment)]
-├── Tratamento e Sanitização de Tipos
-├── Agregações e Engenharia de Métricas (BIAS, Fill Rate, % Erro)
-└── Lógica Prescritiva Condicional (Matriz S&OP)
-│
-▼
-[Data Export (CSV Tratado / Parquet)]
-│
-▼
+* Construir um pipeline escalável e distribuído em **PySpark** para ingestão e consolidação de dados de vendas e planejamento.
+* Monitorar a eficiência da cadeia logística e a precisão do *forecast* por meio de métricas como **BIAS (unidades)**, **MAPE / Erro % SKU** e **Fill Rate (%)**.
+* Desenvolver uma matriz de recomendação automatizada para direcionar ações prescritivas diretamente para as áreas responsáveis (Trade Marketing/RGM, Supply Chain e Planejamento).
+* Publicar um painel interativo no **Looker Studio** com visão executiva e tática dos indicadores.
+
+---
+
+## 🧱 Arquitetura e Etapas da Solução
+
+```text
+[Dados Brutos ERP/CSV]
+       │
+       ▼
+[Pipeline Distribuído - PySpark (Google Colab)]
+   ├── 1. Ingestão e Sanitização de Tipos
+   ├── 2. Agregações & Engenharia de KPIs (BIAS, Fill Rate, MAPE)
+   └── 3. Regra de Negócio Prescritiva (Classificação S&OP)
+       │
+       ▼
+[Data Layer (Arquivos Processados Parquet / CSV)]
+       │
+       ▼
 [Looker Studio - Dashboard Executivo & Tático]
 
+📊 Principais Indicadores Calculados (KPIs):
 
-* **Linguagem & Engine:** Python 3.x, Apache Spark / PySpark.
-* **Ambiente de Desenvolvimento:** Google Colab.
-* **Data Viz / BI:** Google Looker Studio.
-* **Métricas Principais:** `BIAS (Unidades)`, `MAPE / Erro % SKU`, `Fill Rate %`, `Forecast Un`, `Sell-Out Un`.
+Métrica                                 Conceito de Negócio                                 Impacto Estratégico
 
----
-
-## 📊 Principais Indicadores Calculados (KPIs)
-
-| Métrica | Conceito de Negócio | Impacto Estratégico |
-| :--- | :--- | :--- |
-| **BIAS (Unidades)** | Medida de viés direcional ($\text{Forecast} - \text{Sell Out}$). | Identifica a sobra ou a falta absoluta de produto na ponta. |
-| **Erro % SKU** | Percentual de desvio absoluto em relação à venda real. | Avalia o nível de precisão do algoritmo de demanda por item. |
-| **Fill Rate (%)** | Percentual de atendimento do pedido da fábrica ($\frac{\text{Atendido}}{\text{Sell In}}$). | Mede o nível de serviço e a eficiência logística fabril. |
-| **Ação Prescritiva** | Classificação automática baseada na variação do BIAS. | Direciona o responsável direto (Trade Mkt, Supply Chain ou Planejamento). |
-
----
-
-## 📈 Resultados & Painel Executivo no Looker Studio
-
-O Dashboard Executivo foi estruturado com foco em **usabilidade, hierarquia visual e tomada de decisão ágil**:
-
-1. **Camada de Indicadores de Topo (Scorecards):**
-   * Consolidação de **Total Forecast** ($50.000$ un), **Total Sell-Out** ($41.100$ un), **BIAS Líquido** ($+9.000$ un) e **Fill Rate Médio** ($96,36\%$).
-2. **Matriz de Responsabilidade Executiva (Gráfico de Pizza):**
-   * **40% Trade Mkt & RGM:** Foco em ações promocionais para queima de sobre-estoque em categorias críticas.
-   * **20% Supply Chain:** Urgência para reabastecimento de SKUs subestimados com risco de ruptura.
-   * **40% Planejamento Contínuo:** Produtos operando dentro da margem tolerável de acurácia.
-3. **Detalhamento Tático por SKU (Tabela Dinâmica):**
-   * Ordenação estratégica por impacto de **BIAS**, permitindo a navegação rápida para mitigação de riscos de capital de giro.
-
-![Dashboard Executivo S&OP](dashboard_sop.jpg)
-
----
-
-## ⚙️ Como Executar o Código
+BIAS(Unidades) Medida de viés direcional (Forecast - Sell Out).Identifica a sobra ou a falta absoluta de produto na ponta.Erro % SKU (MAPE)Percentual de desvio absoluto vs. venda real.Avalia a precisão do algoritmo de demanda por item.Fill Rate (%)Taxa de atendimento da fábrica (Atendido / Sell In).Mede o nível de serviço e a eficiência logística fabril.Ação PrescritivaClassificação automática baseada na variação do BIAS.Direciona a ação responsável (Trade Mkt, Supply Chain ou Planejamento).
+📈 Resultados & Painel Executivo no Looker Studio
+💡 Destaques dos Resultados ObtidosVisualização Unificada (Scorecards): Mapeamento global de 50.000 un planejadas (Forecast) contra 41.100 un comercializadas (Sell-Out), evidenciando um BIAS líquido de +9.000 un acumuladas e um Fill Rate médio de 96,36%.Matriz de Responsabilidade Prescritiva:40% Trade Mkt & RGM: Atuação promocional para queima controlada de sobre-estoque em categorias críticas.20% Supply Chain: Ação prioritária de reabastecimento em SKUs subestimados com risco iminente de ruptura.40% Planejamento Contínuo: Produtos operando dentro da margem tolerável de acurácia.
+📊 Acesse o Dashboard Executivo de S&OP no Looker Studio (Insira o link correto do seu painel aqui)
+🛠️ Tecnologias e Ferramentas UtilizadasLinguagem & Processamento: Python 3.x, Apache Spark / PySparkManipulação & Análise: pandas, numpyVisualização: Google Looker StudioAmbiente de Desenvolvimento: Google Colab / Jupyter NotebookControle de Versão: Git / GitHub📂 Estrutura do RepositórioPlaintext├── data/
+│   ├── raw/                  # Respostas brutas da base ERP (vendas/forecast)
+│   └── processed/            # Dados limpos e métricas S&OP consolidadas
+├── notebooks/
+│   └── pipeline_sop_demand.ipynb # Notebook PySpark com tratamento, métricas e regras
+├── images/
+│   └── dashboard_sop.png     # Capturas do dashboard executivo no Looker Studio
+├── requirements.txt          # Dependências e bibliotecas
+└── README.md                 # Documentação completa do projeto
+▶️ Como Executar o Projeto
 
 1. Clone este repositório:
-   ```bash
-   git clone [https://github.com/julimarpoliveira2902/Intelig-ncia-em-Planejamento-de-Demanda-S-OP-End-to-End-Analytics.git](https://github.com/julimarpoliveira2902/Intelig-ncia-em-Planejamento-de-Demanda-S-OP-End-to-End-Analytics.git)
-Abra o arquivo do notebook no Google Colab ou Jupyter Notebook:
 
-Bash
-jupyter notebook pipeline_sop_demand.ipynb
-Garanta que a biblioteca PySpark esteja instalada:
+Bashgit clone [https://github.com/julimarpoliveira2902/pipeline-planejamento-demanda-sop.git](https://github.com/julimarpoliveira2902/pipeline-planejamento-demanda-sop.git)
+cd pipeline-planejamento-demanda-sop
 
-Python
-!pip install pyspark
-Execute as células do pipeline para gerar a base tratada e sumarizada.
+2. Instale o PySpark e dependências:
 
-👤 Autor
-Julimar Pedro de Oliveira
+Bashpip install -r requirements.txt
 
-LinkedIn: [https://www.linkedin.com/in/julimar-oliveira-59984a1a4/]
+3. Execute o Notebook:
+
+Abra e execute o arquivo notebooks/pipeline_sop_demand.ipynb em seu ambiente do Google Colab ou Jupyter Notebook.
+
+👨‍💻 Autor:Julimar Pedro de Oliveira
+Linkedin [ www.linkedin.com/in/julimarpoliveira]
 
